@@ -1,0 +1,971 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 5sw8lk7edgrkz
+info:
+  version: '1.0'
+  title: account-details
+  summary: Permite obtener detalle de cuenta de cliente
+  description: 'Servicio desarrollado que permite obtener detalle de cuenta de cliente, sus datos y saldos con monto de sobregiro disponible si aplica obtenidos desde AS400.'
+  contact:
+    name: ''
+    url: ''
+    email: ''
+  termsOfService: ''
+  license:
+    name: ''
+    url: 'https://productos.bancolombia.corp/int/v1/operations/product-specific/deposit/deposit-account/account-details/retrieve'
+paths:
+  /retrieve:
+    get:
+      summary: retrieve
+      x-stoplight:
+        id: wewd5j4d24pyq
+      operationId: retrieve
+      security:
+        - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  type: object
+                  required:
+                    - header
+                    - body
+                  properties:
+                    header:
+                      $ref: 'stoplight://resources/overrides/sjkQdDZCT7U'
+                    body:
+                      type: object
+                      required:
+                        - account
+                      properties:
+                        account:
+                          $ref: '#/components/schemas/RequestAccount'
+                          x-stoplight:
+                            id: v8iy3gb83mhdh
+            examples:
+              Example 1:
+                value:
+                  metadata:
+                    _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                    _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                    _datetime: '2025-04-08T17:33:00'
+                  data:
+                    header:
+                      date: 20250827
+                      instanceId: 11
+                      system: BancaMovil
+                      hour: 112011
+                      locationUser: 192.168.234.198
+                      batch: '3700'
+                      branch: 37
+                      user: joseperez123
+                      channelId: '00003711'
+                      supervisor: 80
+                    body:
+                      account:
+                        number: '1234567890'
+      responses:
+        '200':
+          description: Consulta exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - metadata
+                properties:
+                  metadata:
+                    $ref: 'stoplight://resources/overrides/rGJ43Lb63NU'
+                  data:
+                    type: object
+                    required:
+                      - header
+                      - body
+                    properties:
+                      header:
+                        $ref: 'stoplight://resources/overrides/YXxmxHzpp2I'
+                      body:
+                        type: object
+                        required:
+                          - customer
+                          - account
+                          - accountBalance
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/Customer'
+                            x-stoplight:
+                              id: 5ugqre2mdqhvg
+                          account:
+                            $ref: '#/components/schemas/ResponseAccount'
+                            x-stoplight:
+                              id: n0dhiql60maoq
+                          accountBalance:
+                            $ref: '#/components/schemas/AccountBalance'
+                            x-stoplight:
+                              id: es6ie81b2rr8c
+                          overdraft:
+                            $ref: '#/components/schemas/Overdraft'
+                            x-stoplight:
+                              id: ivlgccxpn5sie
+              examples:
+                Consulta cuenta exitosa con sobregiro:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    data:
+                      header:
+                        date: 20251201
+                        instanceId: 11
+                        system: BancaMovil
+                        hour: 123011
+                        batch: '3700'
+                        branch: 37
+                        channelId: '00003711'
+                      body:
+                        customer:
+                          givenName: MESSI
+                          middleName: RONALDO
+                          additionalGivenName: HAALAND
+                          familyName: MBAPPE
+                          secondFamilyName: DEL PIERO
+                          marriedName: DOS SANTOS
+                          identityDocuments:
+                            - documentTypeCode: DUI
+                              documentNumber: 00000000-0
+                          customerId: '123456789'
+                        account:
+                          number: '010200304050'
+                          type: AHO
+                          currency: USD
+                          description: Cuenta de Ahorros
+                          status: A
+                          overdraftDate: '2021-01-15'
+                          contractDate: '2021-01-15'
+                          productCode: '0254'
+                        accountBalance:
+                          bookBalance: 1500
+                          availableBalance: 1200
+                          heldBalance: 300
+                          currency: USD
+                        overdraft:
+                          overdraftAmount: 500
+                          availableOverdraftAmount: 200
+                          overdraftDays: 5
+                          overdraftRate: 12.5
+                Consulta cuenta exitosa sin sobregiro:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    data:
+                      header:
+                        date: 20251201
+                        instanceId: 11
+                        system: BancaMovil
+                        hour: 123011
+                        batch: '3700'
+                        branch: 37
+                        channelId: '00003711'
+                      body:
+                        customer:
+                          givenName: MESSI
+                          middleName: RONALDO
+                          additionalGivenName: HAALAND
+                          familyName: MBAPPE
+                          secondFamilyName: DEL PIERO
+                          marriedName: DOS SANTOS
+                          identityDocuments:
+                            - documentTypeCode: DUI
+                              documentNumber: 00000000-0
+                          customerId: '123456789'
+                        account:
+                          number: '010200304050'
+                          type: AHO
+                          currency: USD
+                          description: Cuenta de Ahorros
+                          status: A
+                          overdraftDate: '2021-01-15'
+                          contractDate: '2021-01-15'
+                          productCode: '0254'
+                        accountBalance:
+                          bookBalance: 1500
+                          availableBalance: 1200
+                          heldBalance: 300
+                          currency: USD
+        '400':
+          description: Error de validación de datos
+          content:
+            application/json:
+              schema:
+                $ref: 'stoplight://resources/overrides/nytQbotlZSQ'
+              examples:
+                HEADER_DATE_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010148
+                        title: API
+                        detail: The value of the date field is missing or invalid.
+                HEADER_INSTANCE_ID_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010149
+                        title: API
+                        detail: The value of the instanceId field is missing or invalid.
+                HEADER_SYSTEM_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010150
+                        title: API
+                        detail: The value of the system field is missing or invalid.
+                HEADER_HOUR_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010151
+                        title: API
+                        detail: The value of the hour field is missing or invalid.
+                HEADER_LOCATION_USER_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010152
+                        title: API
+                        detail: The value of the locationUser field is missing or invalid.
+                HEADER_BATCH_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010153
+                        title: API
+                        detail: The value of the batch field is missing or invalid.
+                HEADER_BRANCH_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010154
+                        title: API
+                        detail: The value of the branch field is missing or invalid.
+                HEADER_USER_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010155
+                        title: API
+                        detail: The value of the user field is missing or invalid.
+                HEADER_CHANNEL_ID_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010156
+                        title: API
+                        detail: The value of the channelId field is missing or invalid.
+                HEADER_SUPERVISOR_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010157
+                        title: API
+                        detail: The value of the supervisor field is missing or invalid.
+                API_REQUEST_ACCOUNT_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010158
+                        title: API
+                        detail: The value of the account field is missing or invalid.
+                API_REQUEST_DATA_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010159
+                        title: API
+                        detail: The value of the data field is missing or invalid.
+                API_REQUEST_HEADER_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010160
+                        title: API
+                        detail: The value of the header field is missing or invalid.
+                API_REQUEST_BODY_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010161
+                        title: API
+                        detail: The value of the body field is missing or invalid.
+                MISSING_HEADER:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010168
+                        title: API
+                        detail: A required header is missing.
+                MALFORMED_JSON_REQUEST:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010172
+                        title: API
+                        detail: The JSON format is invalid. Verify the request structure.
+                TOO_MANY_REQUESTS:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '429'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA42910173
+                        title: API
+                        detail: Transaction limit exceeded. Please try again later.
+                INVALID_CONTENT_TYPE:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '415'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA41510174
+                        title: API
+                        detail: The value of the Content-Type header is invalid or not allowed.
+                ACCOUNT_NUMBER_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010202
+                        title: API
+                        detail: The account number is missing or has an invalid format.
+                ACCOUNT_NUMBER_INVALID_SECURITY:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010203
+                        title: API
+                        detail: The account number contains characters that are not allowed.
+                METADATA_MESSAGE_ID_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010204
+                        title: API
+                        detail: The value of the _messageId header is missing or invalid.
+                METADATA_CORRELATION_ID_INVALID:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010205
+                        title: API
+                        detail: The value of the _correlationId header is missing or invalid.
+                METADATA_DATETIME_REQUIRED:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '400'
+                    message: BAD REQUEST
+                    errors:
+                      - code: SA40010206
+                        title: API
+                        detail: The value of the _datetime header is missing or invalid.
+        '401':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: 'stoplight://resources/overrides/nytQbotlZSQ'
+              examples:
+                INVALID_API_KEY:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '401'
+                    message: UNAUTHORIZED
+                    errors:
+                      - code: BP40110163
+                        title: BVA
+                        detail: The API key is invalid.
+                INVALID_TOKEN:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '401'
+                    message: UNAUTHORIZED
+                    errors:
+                      - code: SA40110175
+                        title: API
+                        detail: The provided token is invalid. Please verify.
+                EXPIRED_TOKEN:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '401'
+                    message: UNAUTHORIZED
+                    errors:
+                      - code: SA40110176
+                        title: API
+                        detail: The provided token has expired. Please verify.
+        '404':
+          description: Recurso no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: 'stoplight://resources/overrides/nytQbotlZSQ'
+              examples:
+                INVALID_ACCOUNT:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '404'
+                    message: NOT FOUND
+                    errors:
+                      - code: BP40410164
+                        title: BVA
+                        detail: The provided account does not exist in the system.
+                NOT_FOUND:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '404'
+                    message: NOT FOUND
+                    errors:
+                      - code: SA40410166
+                        title: API
+                        detail: The requested path does not exist.
+        '405':
+          description: Método HTTP no permitido
+          content:
+            application/json:
+              schema:
+                $ref: 'stoplight://resources/overrides/nytQbotlZSQ'
+              examples:
+                METHOD_NOT_ALLOWED:
+                  value:
+                    metadata:
+                      _messageId: 123e4567-e89b-12d3-a456-426614174000
+                      _correlationId: 987e6543-e21b-12d3-a456-426614174999
+                      _datetime: '2026-04-06T23:30:01'
+                    status: '405'
+                    message: SYSTEM_ERROR
+                    errors:
+                      - code: SA40510165
+                        title: API
+                        detail: HTTP method not supported.
+        '409':
+          description: Conflicto de negocio
+          content:
+            application/json:
+              schema:
+                $ref: 'stoplight://resources/overrides/nytQbotlZSQ'
+              examples:
+                INVALID_TRANSACTION_ID:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '409'
+                    message: BAD REQUEST
+                    errors:
+                      - code: BP40910162
+                        title: BVA
+                        detail: The transaction ID is invalid or duplicated.
+        '500':
+          description: Error interno del sistema
+          content:
+            application/json:
+              schema:
+                $ref: 'stoplight://resources/overrides/nytQbotlZSQ'
+              examples:
+                INTERNAL_SERVER_ERROR:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '500'
+                    message: SYSTEM ERROR
+                    errors:
+                      - code: SA50010167
+                        title: API
+                        detail: An error occurred while processing the request.
+                MQ_INVALID_RESPONSE:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '502'
+                    message: SYSTEM ERROR
+                    errors:
+                      - code: SP50210169
+                        title: PRE
+                        detail: MQ returned an invalid or unexpected response.
+                MQ_CONNECTION_ERROR:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '503'
+                    message: SYSTEM ERROR
+                    errors:
+                      - code: SP50310170
+                        title: PRE
+                        detail: Unable to establish communication with MQ.
+                MQ_TIMEOUT_ERROR:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '504'
+                    message: SYSTEM ERROR
+                    errors:
+                      - code: SP50410171
+                        title: PRE
+                        detail: Timeout occurred while querying MQ.
+                CORE_BANKING_TIMEOUT:
+                  value:
+                    metadata:
+                      _messageId: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+                      _correlationId: 4f1a0510-22e7-467f-a6e2-ada36a777674
+                      _datetime: '2025-04-08T17:33:00'
+                    status: '504'
+                    message: SYSTEM ERROR
+                    errors:
+                      - code: SP50410177
+                        title: PRE
+                        detail: Timeout occurred while querying CORE.
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+            maxLength: 36
+            minLength: 36
+            example: a4bbf19a-bbd2-44ac-8b79-ec737b8c8941
+          in: header
+          name: messageId
+          description: Identificador único de trx
+          required: true
+        - schema:
+            type: string
+            format: uuid
+            minLength: 36
+            maxLength: 36
+            example: 4f1a0510-22e7-467f-a6e2-ada36a777674
+          in: header
+          name: correlationId
+          description: Identificador correlativo de trx
+        - schema:
+            type: string
+            format: date-time
+            example: '2026-04-06T23:30:01'
+            minLength: 19
+            maxLength: 25
+          in: header
+          name: dateTime
+          description: Fecha trx
+          required: true
+    parameters: []
+components:
+  securitySchemes:
+    apiKey:
+      type: oauth2
+      description: RFC8725
+      flows:
+        authorizationCode:
+          authorizationUrl: ''
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes: {}
+  schemas:
+    Customer:
+      type: object
+      required:
+        - givenName
+        - middleName
+        - familyName
+        - secondFamilyName
+        - identityDocuments
+        - customerId
+      properties:
+        givenName:
+          type: string
+          minLength: 1
+          maxLength: 50
+          example: MESSI
+          x-stoplight:
+            id: 2jnr9p3879x97
+        middleName:
+          type: string
+          x-stoplight:
+            id: 9o1wey5zf0m5q
+          minLength: 1
+          maxLength: 50
+          example: RONALDO
+        additionalGivenName:
+          type: string
+          x-stoplight:
+            id: 1li4g2kwu0pq8
+          minLength: 1
+          maxLength: 50
+          example: HAALAND
+        familyName:
+          type: string
+          x-stoplight:
+            id: ss69hwb7a38bp
+          minLength: 1
+          maxLength: 50
+          example: MBAPPE
+        secondFamilyName:
+          type: string
+          x-stoplight:
+            id: b89oukj8d0e8p
+          minLength: 1
+          maxLength: 50
+          example: DEL PIERO
+        marriedName:
+          type: string
+          x-stoplight:
+            id: g29ilmexrxbif
+          minLength: 1
+          maxLength: 50
+          example: DOS SANTOS
+        identityDocuments:
+          x-stoplight:
+            id: e2dnbknvjfhqm
+          type: array
+          items:
+            $ref: '#/components/schemas/IdentityDocument'
+            x-stoplight:
+              id: gwfwk1fv0s0gj
+        customerId:
+          type: string
+          x-stoplight:
+            id: gqadjfyy1b7a7
+          minLength: 9
+          maxLength: 9
+          example: '123456789'
+      x-stoplight:
+        id: vghpnokwgacsr
+    ResponseAccount:
+      type: object
+      x-stoplight:
+        id: qhkekb6k2aoii
+      examples:
+        - number: '010200304050'
+          type: AHO
+          currency: USD
+          description: Cuenta de Ahorros
+          status: ACTIVE
+          overdraftDate: '2021-01-15'
+          contractDate: '2021-01-15'
+          productCode: '0254'
+      description: Entidad encargada de retornar el detalle de cuenta del cliente.
+      required:
+        - number
+        - type
+        - description
+        - status
+        - contractDate
+        - productCode
+      properties:
+        number:
+          type: string
+          maxLength: 12
+          example: '010200304050'
+          minLength: 12
+        type:
+          type: string
+          maxLength: 3
+          x-stoplight:
+            id: czgl0tjng5137
+          minLength: 3
+          example: AHO
+        description:
+          type: string
+          maxLength: 50
+          example: Cuenta de Ahorros
+          x-stoplight:
+            id: unor5fuib8a2u
+          minLength: 1
+        status:
+          type: string
+          maxLength: 1
+          example: A
+          minLength: 1
+        overdraftDate:
+          type: string
+          maxLength: 10
+          example: '2021-01-15'
+          x-stoplight:
+            id: 2sc2lnk3l16kn
+          format: date
+          minLength: 10
+        contractDate:
+          type: string
+          example: '2021-01-15'
+          x-stoplight:
+            id: 089ck7sbsxva5
+          format: date
+          minLength: 10
+          maxLength: 10
+        productCode:
+          type: string
+          maxLength: 4
+          example: '0254'
+          x-stoplight:
+            id: udr6lbr9yi6i6
+          minLength: 4
+    RequestAccount:
+      title: RequestAccount
+      x-stoplight:
+        id: x93q4jvc1w7mc
+      type: object
+      description: Entidad encargada de obtener el numero de cuenta de cliente.
+      required:
+        - number
+      properties:
+        number:
+          type: string
+          x-stoplight:
+            id: dh2cphb0k4ddj
+          maxLength: 12
+          minLength: 1
+          example: '1234567890'
+      examples:
+        - number: '1234567890'
+    AccountBalance:
+      title: AccountBalance
+      x-stoplight:
+        id: mb5yfz6fd8f4i
+      type: object
+      required:
+        - bookBalance
+        - availableBalance
+        - heldBalance
+        - currency
+      properties:
+        bookBalance:
+          type: number
+          x-stoplight:
+            id: 5szzxa8efas9q
+          example: 1500
+          maximum: 999999999999999
+          minimum: 1
+          format: double
+        availableBalance:
+          type: number
+          x-stoplight:
+            id: cbshg2bnh3bsw
+          example: 1200
+          maximum: 999999999999999
+          minimum: 1
+          format: double
+        heldBalance:
+          type: number
+          x-stoplight:
+            id: 68mwrjue7d8lw
+          example: 300
+          minimum: 1
+          maximum: 999999999999999
+          format: double
+        currency:
+          type: string
+          x-stoplight:
+            id: 3mdc29oweovo3
+          example: USD
+          minLength: 3
+          maxLength: 3
+    Overdraft:
+      title: Overdraft
+      x-stoplight:
+        id: dnlwboupnmn6b
+      type: object
+      description: Entidad que retorna el sobregiro de cuenta para aquellas que aplique.
+      properties:
+        overdraftAmount:
+          type: number
+          x-stoplight:
+            id: o44ywe8j7hb2a
+          example: 500
+          format: double
+          minimum: 1
+          maximum: 999999999999999
+        availableOverdraftAmount:
+          type: number
+          x-stoplight:
+            id: j4007ivkzxejc
+          example: 200
+          maximum: 999999999999999
+          format: double
+          minimum: 1
+        overdraftDays:
+          type: integer
+          x-stoplight:
+            id: dytv6d1c8g0m4
+          example: 5
+          minimum: 1
+          maximum: 6
+          format: int32
+        overdraftRate:
+          type: number
+          x-stoplight:
+            id: zlw8ivq2msmjt
+          example: 12.5
+          minimum: 1
+          maximum: 9999999
+          format: double
+    IdentityDocument:
+      title: IdentityDocument
+      x-stoplight:
+        id: 83i9ui87vzg0c
+      type: object
+      required:
+        - documentTypeCode
+        - documentNumber
+      properties:
+        documentTypeCode:
+          type: string
+          x-stoplight:
+            id: aoyqes3b6jigo
+          minLength: 3
+          maxLength: 3
+          example: DUI
+        documentNumber:
+          type: string
+          x-stoplight:
+            id: mi5ugu5swry9e
+          minLength: 1
+          maxLength: 16
+          example: 00000000-0
+security:
+  - apiKey: []

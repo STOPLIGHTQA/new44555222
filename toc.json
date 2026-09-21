@@ -1,0 +1,59 @@
+{
+  "collapseTableOfContents": false,
+  "items": [
+    {
+      "type": "divider",
+      "title": "APIS"
+    },
+    {
+      "type": "group",
+      "title": "account-details",
+      "uri": "/reference/OAS.yaml",
+      "items": [
+        {
+          "type": "item",
+          "title": "retrieve",
+          "uri": "/reference/OAS.yaml/paths/~1retrieve/get"
+        },
+        {
+          "type": "group",
+          "title": "Schemas",
+          "items": [
+            {
+              "type": "item",
+              "title": "Customer",
+              "uri": "/reference/OAS.yaml/components/schemas/Customer"
+            },
+            {
+              "type": "item",
+              "title": "ResponseAccount",
+              "uri": "/reference/OAS.yaml/components/schemas/ResponseAccount"
+            },
+            {
+              "type": "item",
+              "title": "RequestAccount",
+              "uri": "/reference/OAS.yaml/components/schemas/RequestAccount"
+            },
+            {
+              "type": "item",
+              "title": "AccountBalance",
+              "uri": "/reference/OAS.yaml/components/schemas/AccountBalance"
+            },
+            {
+              "type": "item",
+              "title": "Overdraft",
+              "uri": "/reference/OAS.yaml/components/schemas/Overdraft"
+            },
+            {
+              "type": "item",
+              "title": "IdentityDocument",
+              "uri": "/reference/OAS.yaml/components/schemas/IdentityDocument"
+            }
+          ],
+          "itemsType": "model"
+        }
+      ]
+    }
+  ],
+  "version": 2
+}
